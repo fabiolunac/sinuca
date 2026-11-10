@@ -1,6 +1,6 @@
 // Cache-first: o app abre direto do celular, sem esperar rede.
 // Ao mudar algum arquivo, troque a versão abaixo para forçar atualização.
-const CACHE = 'sinuca-v4';
+const CACHE = 'sinuca-v5';
 const FILES = ['./', 'index.html', 'manifest.json', 'icon-180.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {

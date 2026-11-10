@@ -111,6 +111,21 @@ function render(changed) {
     el.classList.toggle('leader', a !== b && state.scores[i] === Math.max(a, b));
     if (i === changed) { s.classList.remove('pop'); void s.offsetWidth; s.classList.add('pop'); }
   });
+  if (a !== b) putOnTop(document.getElementById('p' + (a > b ? 0 : 1)));
+}
+
+// Quem está ganhando sobe pro topo; no empate fica como está.
+function putOnTop(el) {
+  const box = el.parentElement;
+  if (box.firstElementChild === el) return;
+  const cards = [...box.children];
+  const before = cards.map(c => c.getBoundingClientRect().top);
+  box.insertBefore(el, box.firstElementChild);
+  cards.forEach((c, k) => {
+    const dy = before[k] - c.getBoundingClientRect().top;
+    if (dy) c.animate([{ transform: `translateY(${dy}px)` }, { transform: 'none' }],
+      { duration: 350, easing: 'cubic-bezier(.2, .8, .2, 1)' });
+  });
 }
 function change(i, d) {
   if (state.scores[i] + d < 0) return;
